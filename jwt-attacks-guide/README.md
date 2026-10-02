@@ -1,6 +1,6 @@
 
 
-```markdown
+
 # 🔐 JWT Attacks — Guide complet d'exploitation
 
 > **Auteur :** [@spectramz](https://github.com/exploit4040) — *"Le roi des pirates"* 🏴‍☠️
