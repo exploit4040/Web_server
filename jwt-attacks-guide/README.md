@@ -1,7 +1,7 @@
 
 
 
-# 🔐 JWT Attacks — Guide complet d'exploitation
+#  JWT Attacks — Guide complet d'exploitation
 
 > **Auteur :** [@spectramz](https://github.com/exploit4040) — *"Le roi des pirates"* 🏴‍☠️
 > **Catégorie :** Web Exploitation — Cryptographie appliquée
@@ -15,7 +15,7 @@
 
 ---
 
-## 📌 Table des matières
+##  Table des matières
 
 - [Introduction](#-introduction)
 - [Anatomie d'un JWT](#-anatomie-dun-jwt)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🎯 Introduction
+##  Introduction
 
 Les **JSON Web Tokens (JWT)** sont devenus le standard de facto pour l'authentification stateless dans les applications modernes. Leur popularité repose sur leur simplicité : un token auto-porteur, signé cryptographiquement, qui peut être vérifié sans accès à une base de données.
 
@@ -51,11 +51,11 @@ Ce guide regroupe les **6 attaques les plus courantes** sur les JWT, avec pour c
 - Les outils à utiliser
 - Les mesures de remédiation
 
-> ⚠️ **Avertissement légal** — Ce contenu est destiné à la formation, au pentest autorisé et à la sécurisation d'applications. Ne jamais utiliser ces techniques sans autorisation écrite préalable.
+>  **Avertissement légal** — Ce contenu est destiné à la formation, au pentest autorisé et à la sécurisation d'applications. Ne jamais utiliser ces techniques sans autorisation écrite préalable.
 
 ---
 
-## 🧬 Anatomie d'un JWT
+##  Anatomie d'un JWT
 
 Un JWT est composé de **trois parties** séparées par des points :
 
@@ -111,7 +111,7 @@ HMACSHA256(
 
 ---
 
-## 🔓 Attaque 1 — Secret HMAC faible
+##  Attaque 1 — Secret HMAC faible
 
 ### Principe
 
@@ -191,7 +191,7 @@ flask-unsign --sign --cookie "{'role':'admin'}" --secret 'secret123'
 
 ---
 
-## 🚫 Attaque 2 — Algorithme "none"
+##  Attaque 2 — Algorithme "none"
 
 ### Principe
 
@@ -234,10 +234,10 @@ Certaines bibliothèques acceptent `none`, `None`, `NONE`, `nOnE`. Il faut teste
 ### Défenses
 
 ```python
-# ❌ Vulnérable
+#  Vulnérable
 jwt.decode(token, options={"verify_signature": False})
 
-# ✅ Sécurisé — forcer l'algorithme
+#  Sécurisé — forcer l'algorithme
 jwt.decode(token, SECRET, algorithms=["HS256"])
 ```
 
@@ -245,7 +245,7 @@ jwt.decode(token, SECRET, algorithms=["HS256"])
 
 ---
 
-## 🔀 Attaque 3 — Algorithm Confusion (RS256 → HS256)
+##  Attaque 3 — Algorithm Confusion (RS256 → HS256)
 
 ### Principe
 
@@ -321,10 +321,10 @@ curl -X POST http://<cible>/admin \
 ### Défenses
 
 ```python
-# ✅ Forcer l'algorithme attendu
+#  Forcer l'algorithme attendu
 jwt.decode(token, PUBLIC_KEY, algorithms=["RS256"])
 
-# ❌ Ne JAMAIS faire
+#  Ne JAMAIS faire
 jwt.decode(token, PUBLIC_KEY, algorithms=["RS256", "HS256"])
 ```
 
@@ -332,7 +332,7 @@ jwt.decode(token, PUBLIC_KEY, algorithms=["RS256", "HS256"])
 
 ---
 
-## ♻️ Attaque 4 — Contournement de blacklist par padding
+##  Attaque 4 — Contournement de blacklist par padding
 
 ### Principe
 
@@ -387,17 +387,17 @@ curl http://<cible>/admin \
 3. Ou utiliser des tokens à **durée de vie très courte** (5 min) + refresh tokens
 
 ```python
-# ❌ Vulnérable
+#  Vulnérable
 blacklist.add(access_token)
 
-# ✅ Sécurisé
+#  Sécurisé
 decoded = jwt.decode(access_token, SECRET, algorithms=["HS256"])
 blacklist.add(decoded["jti"])
 ```
 
 ---
 
-## 📂 Attaque 5 — Path Traversal dans le paramètre `kid`
+##  Attaque 5 — Path Traversal dans le paramètre `kid`
 
 ### Principe
 
@@ -469,7 +469,7 @@ curl http://<cible>/admin \
 ### Défenses
 
 ```python
-# ✅ Toujours utiliser une liste blanche de kid
+#  Toujours utiliser une liste blanche de kid
 ALLOWED_KIDS = {"key1", "key2", "key3"}
 
 if kid not in ALLOWED_KIDS:
@@ -485,7 +485,7 @@ key_path = os.path.join("keys", kid + ".pem")
 
 ---
 
-## 🍪 Attaque 6 — Cracking de clé Flask
+##  Attaque 6 — Cracking de clé Flask
 
 ### Principe
 
@@ -547,7 +547,7 @@ supersecret, mysecret, jwt-secret, jwt_secret
 ### Défenses
 
 ```python
-# ✅ Clé robuste générée aléatoirement
+#  Clé robuste générée aléatoirement
 import secrets
 app.secret_key = secrets.token_hex(32)
 ```
@@ -594,7 +594,7 @@ flask-unsign --sign --cookie "{'admin':True}" --secret 'secret' --no-literal-eva
 
 ---
 
-## 🧪 Méthodologie de test
+##  Méthodologie de test
 
 Quand tu rencontres un JWT lors d'un pentest, suis cette checklist :
 
@@ -623,7 +623,7 @@ Quand tu rencontres un JWT lors d'un pentest, suis cette checklist :
 
 ---
 
-## 🛡️ Remédiation
+##  Remédiation
 
 ### Côté serveur
 
@@ -729,3 +729,6 @@ def revoke_token(token: str) -> None:
 > *"Un token, c'est une promesse. Une signature, c'est une preuve. Ne jamais faire confiance à l'une sans vérifier l'autre."* 🏴‍☠️
 
 ---
+📄 Licence
+
+##### Ce projet est publié sous licence MIT. Voir le fichier LICENSE pour plus de détails.
