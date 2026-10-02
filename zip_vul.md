@@ -332,16 +332,3 @@ Ce write-up est publié sous licence **MIT**. Vous êtes libre de le partager, l
 ```
 
 ---
-
-## 💡 Conseils de publication
-
-1. **Nom du fichier** : garde `zip_vul.md` (simple et clair) ou renomme en `writeup-zip-symlink.md`.
-2. **Description du repo** : 
-   > « Write-ups et cheatsheets en cybersécurité offensive — Web Exploitation, Pentest, Red Team. »
-3. **Topics GitHub** : `cybersecurity`, `writeup`, `web-exploitation`, `zip`, `symlink`, `pentest`, `infosec`, `ctf`
-4. **Licence** : ajoute un fichier `LICENSE` (MIT) à la racine du repo.
-5. **README principal** : crée un `README.md` à la racine qui liste tous tes write-ups avec des liens vers chaque fichier.
-
----
-
-Bien joué pour ce challenge, et bonne publication sur ton GitHub ! Si tu veux que je te génère un **README principal** qui regroupe tous tes write-ups (avec un sommaire, des catégories, des stats…), dis-moi et je te le prépare. 🏴‍☠️
